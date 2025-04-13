@@ -1,0 +1,21 @@
+# Ignore compiled object files
+*.o
+
+# Ignore the executable file
+tetris
+
+# Ignore temporary files created by editors
+*.swp
+*.swo
+*~
+*.tmp
+
+# Ignore build artifacts
+/build/
+*.out
+
+# Ignore MacOS system files
+.DS_Store
+
+# Ignore logs and debugging files
+*.log
