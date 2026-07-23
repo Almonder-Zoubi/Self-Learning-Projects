@@ -16,10 +16,11 @@ const int TETROMINOES[7][4][4] = {
 
 void initialize_game(GameState *state) {
     memset(state->grid, 0, sizeof(state->grid)); // Clear the grid
-    memcpy(state->currentTetromino, TETROMINOES[rand() % 7], sizeof(state->currentTetromino)); // Initialize the first tetromino
+    state->gameOver = 0; // Ensure gameOver is set to 0
+    state->currentTetrominoType = rand() % 7;
+    memcpy(state->currentTetromino, TETROMINOES[state->currentTetrominoType], sizeof(state->currentTetromino)); // Initialize the first tetromino
     state->currentX = GRID_WIDTH / 2 - 2; // Center the tetromino
     state->currentY = 0;
-    state->gameOver = 0; // Ensure gameOver is set to 0
 
     // Check for initial collision
     if (check_collision(state, 0, 0)) {
@@ -50,7 +51,7 @@ void lock_tetromino(GameState *state) {
                 int gridX = state->currentX + x;
                 int gridY = state->currentY + y;
                 if (gridX >= 0 && gridX < GRID_WIDTH && gridY >= 0 && gridY < GRID_HEIGHT) {
-                    state->grid[gridY][gridX] = 1; // Lock the tetromino into the grid
+                    state->grid[gridY][gridX] = state->currentTetrominoType + 1; // Lock the tetromino into the grid
                 }
             }
         }
@@ -91,7 +92,8 @@ void update_game(GameState *state) {
         clear_lines(state);
 
         // Spawn a new tetromino
-        memcpy(state->currentTetromino, TETROMINOES[rand() % 7], sizeof(state->currentTetromino));
+    state->currentTetrominoType = rand() % 7;
+    memcpy(state->currentTetromino, TETROMINOES[state->currentTetrominoType], sizeof(state->currentTetromino));
         state->currentX = GRID_WIDTH / 2 - 2;
         state->currentY = 0;
 

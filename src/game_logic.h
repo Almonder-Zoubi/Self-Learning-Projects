@@ -7,6 +7,7 @@
 typedef struct {
     int grid[GRID_HEIGHT][GRID_WIDTH];
     int currentTetromino[4][4]; // Placeholder for current tetromino shape
+    int currentTetrominoType;
     int currentX;
     int currentY;
     int gameOver;
