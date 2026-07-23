@@ -17,6 +17,7 @@ const int TETROMINOES[7][4][4] = {
 void initialize_game(GameState *state) {
     memset(state->grid, 0, sizeof(state->grid)); // Clear the grid
     state->gameOver = 0; // Ensure gameOver is set to 0
+    state->score = 0;
     state->currentTetrominoType = rand() % 7;
     memcpy(state->currentTetromino, TETROMINOES[state->currentTetrominoType], sizeof(state->currentTetromino)); // Initialize the first tetromino
     state->currentX = GRID_WIDTH / 2 - 2; // Center the tetromino
@@ -58,7 +59,8 @@ void lock_tetromino(GameState *state) {
     }
 }
 
-void clear_lines(GameState *state) {
+int clear_lines(GameState *state) {
+    int clearedLines = 0;
     for (int y = GRID_HEIGHT - 1; y >= 0; y--) {
         int full = 1;
         for (int x = 0; x < GRID_WIDTH; x++) {
@@ -78,8 +80,28 @@ void clear_lines(GameState *state) {
 
             // Check the same row again (it now contains the row above)
             y++;
+            clearedLines++;
         }
     }
+
+    switch (clearedLines) {
+        case 1:
+            state->score += 100;
+            break;
+        case 2:
+            state->score += 300;
+            break;
+        case 3:
+            state->score += 500;
+            break;
+        case 4:
+            state->score += 800;
+            break;
+        default:
+            break;
+    }
+
+    return clearedLines;
 }
 
 void update_game(GameState *state) {
@@ -92,8 +114,8 @@ void update_game(GameState *state) {
         clear_lines(state);
 
         // Spawn a new tetromino
-    state->currentTetrominoType = rand() % 7;
-    memcpy(state->currentTetromino, TETROMINOES[state->currentTetrominoType], sizeof(state->currentTetromino));
+        state->currentTetrominoType = rand() % 7;
+        memcpy(state->currentTetromino, TETROMINOES[state->currentTetrominoType], sizeof(state->currentTetromino));
         state->currentX = GRID_WIDTH / 2 - 2;
         state->currentY = 0;
 

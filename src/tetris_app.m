@@ -203,6 +203,7 @@ static void RotateTetrominoClockwise(int tetromino[4][4]) {
     [self drawText:@"Space: rotate" atPoint:NSMakePoint(panelX, NSMaxY(bounds) - 144.0) fontSize:15.0 color:[NSColor colorWithCalibratedWhite:0.88 alpha:1.0]];
     [self drawText:@"R: restart" atPoint:NSMakePoint(panelX, NSMaxY(bounds) - 168.0) fontSize:15.0 color:[NSColor colorWithCalibratedWhite:0.88 alpha:1.0]];
     [self drawText:@"Q or Esc: quit" atPoint:NSMakePoint(panelX, NSMaxY(bounds) - 192.0) fontSize:15.0 color:[NSColor colorWithCalibratedWhite:0.88 alpha:1.0]];
+    [self drawText:[NSString stringWithFormat:@"Score: %d", _gameState.score] atPoint:NSMakePoint(panelX, NSMaxY(bounds) - 236.0) fontSize:20.0 color:[NSColor whiteColor]];
 
     if (_gameState.gameOver) {
         NSRect overlayRect = NSInsetRect(boardRect, 18.0, boardHeight * 0.30);

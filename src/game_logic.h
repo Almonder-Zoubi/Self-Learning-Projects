@@ -10,6 +10,7 @@ typedef struct {
     int currentTetrominoType;
     int currentX;
     int currentY;
+    int score;
     int gameOver;
 } GameState;
 
@@ -17,6 +18,6 @@ void initialize_game(GameState *state);
 void update_game(GameState *state);
 int check_collision(GameState *state, int offsetX, int offsetY);
 void lock_tetromino(GameState *state);
-void clear_lines(GameState *state);
+int clear_lines(GameState *state);
 
 #endif // GAME_LOGIC_H
